@@ -152,16 +152,8 @@ public class EntityFirework extends EntityFX
 
     private void func_92034_a(double par1, double par3, double par5, double par7, double par9, double par11, int[] par13ArrayOfInteger, int[] par14ArrayOfInteger, boolean par15, boolean par16)
     {
-        EntityFireworkSparkFX entityfireworksparkfx = new EntityFireworkSparkFX(worldObj, par1, par3, par5, par7, par9, par11, field_92040_ay);
-        entityfireworksparkfx.func_92045_e(par15);
-        entityfireworksparkfx.func_92043_f(par16);
-        int i = rand.nextInt(par13ArrayOfInteger.length);
-        entityfireworksparkfx.func_92044_a(par13ArrayOfInteger[i]);
-
-        if (par14ArrayOfInteger != null && par14ArrayOfInteger.length > 0)
-        {
-            entityfireworksparkfx.func_92046_g(par14ArrayOfInteger[rand.nextInt(par14ArrayOfInteger.length)]);
-        }
+    	EntityFireworkSparkFX entityfireworksparkfx = new EntityFireworkSparkFX(worldObj, par1, par3, par5, par7, par9, par11, field_92040_ay);
+    	
 
         field_92040_ay.addEffect(entityfireworksparkfx);
     }

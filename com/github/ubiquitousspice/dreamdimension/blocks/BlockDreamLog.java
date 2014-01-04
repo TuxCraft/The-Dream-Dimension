@@ -70,14 +70,14 @@ public class BlockDreamLog extends BlockRotatedPillar
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected Icon func_111048_c(int par1)
+    protected Icon getSideIcon(int par1)
     {
         return side;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    protected Icon func_111049_d(int par1)
+    protected Icon getEndIcon(int par1)
     {
         return top;
     }

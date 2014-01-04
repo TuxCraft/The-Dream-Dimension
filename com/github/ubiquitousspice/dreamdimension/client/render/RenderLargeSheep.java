@@ -39,7 +39,7 @@ public class RenderLargeSheep extends RenderLiving
     @Override
     protected void func_110827_b(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
-        Entity entity = par1EntityLiving.func_110166_bE();
+        Entity entity = par1EntityLiving.func_94060_bK();
 
         if (entity != null)
         {
@@ -128,7 +128,7 @@ public class RenderLargeSheep extends RenderLiving
 
         if (par2 == 0 && !flag)
         {
-            func_110776_a(field_110885_a);
+            this.bindTexture(field_110885_a);
             float f1 = 1.0F;
             int j = par1EntitySheep.getFleeceColor();
             GL11.glColor3f(f1 * EntitySheep.fleeceColorTable[j][0], f1 * EntitySheep.fleeceColorTable[j][1], f1 * EntitySheep.fleeceColorTable[j][2]);
@@ -155,7 +155,7 @@ public class RenderLargeSheep extends RenderLiving
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity par1Entity)
+    protected ResourceLocation getEntityTexture(Entity par1Entity)
     {
         return func_110883_a((EntityLargeSheep) par1Entity);
     }
@@ -182,7 +182,7 @@ public class RenderLargeSheep extends RenderLiving
 
     private void renderHealthBar(EntityLargeSheep par1EntityLiving)
     {
-        BossStatus.func_82824_a(par1EntityLiving, true);
+        BossStatus.setBossStatus(par1EntityLiving, true);
         ((ModelLargeSheep2) mainModel).func_82903_a();
 
     }

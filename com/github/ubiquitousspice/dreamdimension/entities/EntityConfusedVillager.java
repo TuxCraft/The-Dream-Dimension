@@ -58,19 +58,19 @@ public class EntityConfusedVillager extends EntityMob
     }
 
     @Override
-    protected void func_110147_ax()
+    protected void applyEntityAttributes()
     {
-        super.func_110147_ax();
+        super.applyEntityAttributes();
         // Max Health - default 20.0D - min 0.0D - max Double.MAX_VALUE
-        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(20.0D);
+        (SharedMonsterAttributes.maxHealth).clampValue(20.0D);
         // Follow Range - default 32.0D - min 0.0D - max 2048.0D
-        func_110148_a(SharedMonsterAttributes.field_111265_b).func_111128_a(5.0D);
+        getEntityAttribute(SharedMonsterAttributes.followRange).setAttribute(5.0D);
         // Knockback Resistance - default 0.0D - min 0.0D - max 1.0D
-        func_110148_a(SharedMonsterAttributes.field_111266_c).func_111128_a(0.0D);
+        getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setAttribute(0.0D);
         // Movement Speed - default 0.699D - min 0.0D - max Double.MAX_VALUE
-        func_110148_a(SharedMonsterAttributes.field_111263_d).func_111128_a(0.23000000417232513D);
+        getEntityAttribute(SharedMonsterAttributes.movementSpeed).setAttribute(0.23000000417232513D);
         // Attack Damage - default 2.0D - min 0.0D - max Doubt.MAX_VALUE
-        func_110148_a(SharedMonsterAttributes.field_111264_e).func_111128_a(2.0D);
+        getEntityAttribute(SharedMonsterAttributes.attackDamage).setAttribute(2.0D);
     }
 
     @Override
@@ -202,7 +202,7 @@ public class EntityConfusedVillager extends EntityMob
                         {
                             worldObj.spawnEntityInWorld(entityzombie);
                             entityzombie.setAttackTarget(entitylivingbase);
-                            entityzombie.func_110161_a((EntityLivingData) null);
+                            entityzombie.onSpawnWithEgg((EntityLivingData) null);
                             break;
                         }
                     }
@@ -326,7 +326,7 @@ public class EntityConfusedVillager extends EntityMob
             }
         }
 
-        if (rand.nextFloat() < 0.15F * worldObj.func_110746_b(posX, posY, posZ))
+        if (rand.nextFloat() < 0.15F * worldObj.getLocationTensionFactor(posX, posY, posZ))
         {
             int i = rand.nextInt(2);
             float f = worldObj.difficultySetting == 3 ? 0.5F : 0.4F;
@@ -397,10 +397,10 @@ public class EntityConfusedVillager extends EntityMob
     }
 
     @Override
-    public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
+    public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData)
     {
-        Object par1EntityLivingData1 = super.func_110161_a(par1EntityLivingData);
-        float f = worldObj.func_110746_b(posX, posY, posZ);
+        Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
+        float f = worldObj.getLocationTensionFactor(posX, posY, posZ);
         setCanPickUpLoot(rand.nextFloat() < 0.55F * f);
 
         addRandomArmor();

@@ -43,7 +43,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
         setAIMoveSpeed(3F);
         renderDistanceWeight = 80.0D;
         setSize(0.9F * largeSheepMod, 1.3F * largeSheepMod);
-        setEntityHealth(sheepHealth);
+        setHealth(sheepHealth);
 
         tasks.addTask(0, new EntityAISwimming(this));
         tasks.addTask(1, new EntityAIPanic(this, 1.25D));
@@ -89,7 +89,7 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
 
         if (!worldObj.isRemote)
         {
-            limbYaw /= 8.0D;
+            newRotationYaw /= 8.0D;
             limbSwing /= 8.0D;
         }
 
@@ -185,9 +185,9 @@ public class EntityLargeSheep extends EntityAnimal implements IBossDisplayData
     }
 
     @Override
-    public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
+    public EntityLivingData onSpawnWithEgg(EntityLivingData par1EntityLivingData)
     {
-        par1EntityLivingData = super.func_110161_a(par1EntityLivingData);
+        par1EntityLivingData = super.onSpawnWithEgg(par1EntityLivingData);
 
         int i = 15;
 

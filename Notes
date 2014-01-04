@@ -1,0 +1,30 @@
+ EntityUnicorn.java
+ "
+ @Override
+    protected void func_110147_ax()
+    {
+        super.func_110147_ax();
+        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(4.0D);
+    }
+"
+
+EntityLargeSheep
+"
+@Override
+    public void onLivingUpdate()
+    {
+
+        if (worldObj.isRemote)
+        {
+            sheepTimer = Math.max(0, sheepTimer - 1);
+        }
+
+        if (!worldObj.isRemote)
+        {
+            newRotationYaw /= 8.0D;
+            limbSwing /= 8.0D;
+        }
+
+        super.onLivingUpdate();
+    }
+"

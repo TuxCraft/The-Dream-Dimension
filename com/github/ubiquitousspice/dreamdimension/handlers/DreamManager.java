@@ -35,13 +35,13 @@ public class DreamManager implements ITickHandler
             return;
         }
 
-        if (data.getTimeLeft() == 600)
+        if (data.timeLeft == 600)
         {
             // why?
             player.addPotionEffect(new PotionEffect(Potion.confusion.id, 600, 0));
         }
 
-        if (!data.decrementTime())
+        if (data.decrementTime() != true)
         {
             kickDreamer(player, 0, null);
         }
@@ -98,6 +98,7 @@ public class DreamManager implements ITickHandler
     /**
      * Adds the player to the dreamer list, and replaces their inventory.
      */
+  
     public static void addDreamer(EntityPlayerMP player, long time)
     {
         DreamerData data = new DreamerData(player);
@@ -108,12 +109,14 @@ public class DreamManager implements ITickHandler
             milkTime = player.getEntityData().getLong(DreamDimension.MODID + ".extraDreamTime");
         }
 
-        data.setTimeLeft(milkTime + time);
-
+        data.timeLeft = 6000;
+    
         player.inventory.clearInventory(-1, -1);
 
         dreamers.put(player.username, data);
     }
+   
+    
 
     /**
      * Adds a dreamer with time until the next day.
@@ -134,18 +137,18 @@ public class DreamManager implements ITickHandler
 
         // give em back inventory.
         player.inventory.clearInventory(-1, -1);
-        player.inventory.copyInventory(data.getOldInv());
+        player.inventory.copyInventory(data.oldInv);
 
         // give em back hunger and health
-        player.setEntityHealth(data.getHealth());
-        player.getFoodStats().setFoodLevel(data.getHunger());
+        player.setHealth(data.health);
+        player.getFoodStats().setFoodLevel(data.hunger);
 
         // teleport them to the dimension.
         player.timeUntilPortal = 10;
-        player.mcServer.getConfigurationManager().transferPlayerToDimension(player, data.getBedDim(), new ModTeleporter(player.mcServer.worldServerForDimension(data.getBedDim())));
+        player.mcServer.getConfigurationManager().transferPlayerToDimension(player, data.bedDim, new ModTeleporter(player.mcServer.worldServerForDimension(data.bedDim)));
 
         // and now to the place.
-        player.setPositionAndUpdate(data.getBedX(), data.getBedY(), data.getBedZ());
+        player.setPositionAndUpdate(data.bedX, data.bedY, data.bedZ);
         player.addPotionEffect(new PotionEffect(Potion.confusion.id, confusionTime, 0));
         player.fallDistance = 0;
 
@@ -155,7 +158,7 @@ public class DreamManager implements ITickHandler
             EntityItem entity;
             for (ItemStack stack : spew)
             {
-                entity = new EntityItem(player.worldObj, data.getSpewX(), data.getSpewY(), data.getSpewY(), stack);
+                entity = new EntityItem(player.worldObj, data.spewX, data.spewY, data.spewY, stack);
                 player.worldObj.spawnEntityInWorld(entity);
             }
         }

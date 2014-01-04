@@ -585,10 +585,6 @@ public class ChunkProviderMod implements IChunkProvider
         return true;
     }
 
-    @Override
-    public void func_104112_b()
-    {
-    }
 
     /**
      * Unloads chunks that are marked to be unloaded. This is not guaranteed to unload every such chunk.
@@ -658,4 +654,10 @@ public class ChunkProviderMod implements IChunkProvider
 
         return new SkyRenderer();
     }
+
+	@Override
+	public void saveExtraData() {
+		// TODO Auto-generated method stub
+		
+	}
 }

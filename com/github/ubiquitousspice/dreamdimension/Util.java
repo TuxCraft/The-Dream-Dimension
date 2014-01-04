@@ -18,7 +18,8 @@ public class Util
     /**
      * Will return null if the player is not in bed.
      */
-    public static float[] getWakeLocation(EntityPlayer player)
+    @SuppressWarnings("null")
+	public static float[] getWakeLocation(EntityPlayer player)
     {
         ChunkCoordinates loc = player.playerLocation;
 

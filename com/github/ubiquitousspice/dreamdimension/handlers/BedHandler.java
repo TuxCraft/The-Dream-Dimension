@@ -54,7 +54,6 @@ public class BedHandler implements ITickHandler
 
                 // teleport.
                 Util.moveToDream(player);
-
                 // remove them from list
                 removeList.add(user);
             }

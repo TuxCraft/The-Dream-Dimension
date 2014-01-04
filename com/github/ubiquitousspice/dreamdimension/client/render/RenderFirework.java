@@ -15,7 +15,7 @@ public class RenderFirework extends Render
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity entity)
+    protected ResourceLocation getEntityTexture(Entity entity)
     {
         // TODO Auto-generated method stub
         return null;

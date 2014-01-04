@@ -2,6 +2,7 @@ package com.github.ubiquitousspice.dreamdimension;
 
 import com.github.ubiquitousspice.dreamdimension.blocks.*;
 import com.github.ubiquitousspice.dreamdimension.client.CreativeTabDream;
+import com.github.ubiquitousspice.dreamdimension.command.CommandTimeLeft;
 import com.github.ubiquitousspice.dreamdimension.dimension.WorldProviderMod;
 import com.github.ubiquitousspice.dreamdimension.dimension.world.BiomeGenDream;
 import com.github.ubiquitousspice.dreamdimension.entities.EntityConfusedVillager;
@@ -15,12 +16,15 @@ import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.command.ICommandManager;
+import net.minecraft.command.ServerCommandManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityEggInfo;
 import net.minecraft.entity.EntityList;
@@ -28,6 +32,7 @@ import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
@@ -40,7 +45,7 @@ import java.util.logging.Logger;
 public class DreamDimension
 {
     public static final String MODID = "dreamdimension";
-    public static final String VERSION = "0.1";
+    public static final String VERSION = "0.2";
 
     @Mod.Instance
     public static DreamDimension instance;
@@ -124,11 +129,16 @@ public class DreamDimension
 
         // mess with material
         material = new MaterialDream();
+        
+      
 
         // CONFIGURATION STUFF
         {
             Configuration config = new Configuration(event.getSuggestedConfigurationFile());
-
+            
+           
+            	
+            
             // config itemIDs
             int baseItemId = 9000;
             idFakeDiamond = config.getItem(Configuration.CATEGORY_ITEM, "fakeDiamond", baseItemId++).getInt();
@@ -178,10 +188,16 @@ public class DreamDimension
             }
         }
     }
+   // private MinecraftServer server = MinecraftServer.getServer();
+	//private ICommandManager command = server.getCommandManager();
+	//private ServerCommandManager manager1 = (ServerCommandManager) command;
+
 
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
+    	
+    	
         // instantiate handlers and stuff
         BedHandler bedHandler = new BedHandler();
         PlayerTracker tracker = new PlayerTracker();
@@ -189,7 +205,7 @@ public class DreamDimension
         KickHandler kickHandler = new KickHandler();
         MilkHandler milkHandler = new MilkHandler();
 
-        // register them
+      // register them
         TickRegistry.registerTickHandler(bedHandler, Side.SERVER);
         TickRegistry.registerTickHandler(manager, Side.SERVER);
         TickRegistry.registerTickHandler(milkHandler, Side.SERVER);
@@ -202,34 +218,34 @@ public class DreamDimension
         tabDream = new CreativeTabDream();
 
         // blocks
-        dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").func_111022_d(MODID + ":dreamDirt").setHardness(0.1F);
-        dreamDiamond = new BlockDreamOre(idDreamDiamond, Material.rock).setUnlocalizedName(MODID + ".dreamDiamond").func_111022_d(MODID + ":dreamDiamond").setHardness(2.0F);
+        dreamDirt = new BlockDreamBase(idDreamDirt, Material.ground).setUnlocalizedName(MODID + ":dreamDirt").setTextureName(MODID + ":dreamDirt").setHardness(0.1F);
+        dreamDiamond = new BlockDreamOre(idDreamDiamond, Material.rock).setUnlocalizedName(MODID + ".dreamDiamond").setTextureName(MODID + ":dreamDiamond").setHardness(2.0F);
         boosterBlock = new BlockBooster(idDreamBooster).setCreativeTab(tabDream).setHardness(0.2F);
-        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).func_111022_d("portal");
+        portalBlock = new BlockCheatyPortal(idPortalBlock).setUnlocalizedName(MODID + ":portalBlock").setCreativeTab(tabDream).setTextureName("portal");
         dreamFleece = new BlockDreamFleece(idDreamFleece).setUnlocalizedName(MODID + ".dreamFleeceLarge").setCreativeTab(tabDream).setHardness(1.0F);
         dreamLog = new BlockDreamLog(idDreamLog).setUnlocalizedName(MODID + ":dreamWood").setCreativeTab(tabDream).setHardness(2.0F);
-        dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").func_111022_d(MODID + ":dreamLeaves").setCreativeTab(tabDream).setHardness(0.2F);
-        dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").func_111022_d(MODID + ":dreamPlanks").setCreativeTab(tabDream).setHardness(1.5F);
-        dreamSapling = new BlockDreamSapling(idDreamSapling).setUnlocalizedName(MODID + ".dreamSapling").func_111022_d(MODID + ":dreamSapling").setCreativeTab(tabDream);
+        dreamLeaf = new BlockDreamLeaf(idDreamLeaf).setUnlocalizedName(MODID + ":dreamLeaves").setTextureName(MODID + ":dreamLeaves").setCreativeTab(tabDream).setHardness(0.2F);
+        dreamPlanks = new BlockDreamBase(idDreamPlanks, Material.wood).setUnlocalizedName(MODID + ".dreamPlanks").setTextureName(MODID + ":dreamPlanks").setCreativeTab(tabDream).setHardness(1.5F);
+        dreamSapling = new BlockDreamSapling(idDreamSapling).setUnlocalizedName(MODID + ".dreamSapling").setTextureName(MODID + ":dreamSapling").setCreativeTab(tabDream);
         limbo = new BlockLimbo(idLimbo).setUnlocalizedName(MODID + ".limbo");
 
         // items
-        unicornHorn = new ItemDreamBase(idUnicornHorn, "unicornHorn").setUnlocalizedName(MODID + ".unicornHorn").func_111206_d(MODID + ":unicornHorn").setCreativeTab(tabDream);
-        pear = new ItemPear(idPear, "pear").setUnlocalizedName(MODID + ".pear").func_111206_d(MODID + ":pear").setCreativeTab(tabDream);
+        unicornHorn = new ItemDreamBase(idUnicornHorn, "unicornHorn").setUnlocalizedName(MODID + ".unicornHorn").setTextureName(MODID + ":unicornHorn").setCreativeTab(tabDream);
+        pear = new ItemPear(idPear, "pear").setUnlocalizedName(MODID + ".pear").setTextureName(MODID + ":pear").setCreativeTab(tabDream);
         fleeceHelmet = new ItemFleeceArmor(idFleeceHelm, 0, "fleeceHelmet").setUnlocalizedName(MODID + ".fleeceHelm").setCreativeTab(tabDream);
         fleeceChest = new ItemFleeceArmor(idFleeceChest, 1, "fleeceChest").setUnlocalizedName(MODID + ".fleeceChest").setCreativeTab(tabDream);
         fleeceLegs = new ItemFleeceArmor(idFleeceLegs, 2, "fleeceLegs").setUnlocalizedName(MODID + ".fleeceLegs").setCreativeTab(tabDream);
         fleeceBoots = new ItemFleeceArmor(idFleeceBoots, 3, "fleeceBoots").setUnlocalizedName(MODID + ".fleeceBoots").setCreativeTab(tabDream);
         unicornSword = new ItemUnicornSword(idUnicornSword, "dreamWoodBlade", 0).setUnlocalizedName(MODID + ".unicornSword").setCreativeTab(tabDream);
         unicornSwordUpgrade = new ItemUnicornSword(idUnicornSwordUpgrade, "unicornBlade", 1).setUnlocalizedName(MODID + ".unicornSwordUpgrade").setCreativeTab(tabDream);
-        fakeDiamond = new ItemDreamBase(idFakeDiamond, "fakeDiamond").setUnlocalizedName(MODID + ".fakeDiamond").func_111206_d("diamond").setCreativeTab(tabDream);
-        dreamCatcher = new ItemDreamBase(idDreamCatcher, "dreamCatcher").setUnlocalizedName(MODID + ".dreamCatcher").func_111206_d(MODID + ":dreamCatcher").setCreativeTab(tabDream);
+        fakeDiamond = new ItemDreamBase(idFakeDiamond, "fakeDiamond").setUnlocalizedName(MODID + ".fakeDiamond").setTextureName("diamond").setCreativeTab(tabDream);
+        dreamCatcher = new ItemDreamBase(idDreamCatcher, "dreamCatcher").setUnlocalizedName(MODID + ".dreamCatcher").setTextureName(MODID + ":dreamCatcher").setCreativeTab(tabDream);
 
         // tools
-        fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "fakeDiamondSword").setUnlocalizedName(MODID + ".fDiamondSword").func_111206_d("diamond_sword").setCreativeTab(tabDream);
-        fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "fakeDiamondShovel").setUnlocalizedName(MODID + ".fDiamondShovel").func_111206_d("diamond_shovel").setCreativeTab(tabDream);
-        fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "fakeDiamondAxe").setUnlocalizedName(MODID + ".fDiamondAxe").func_111206_d("diamond_axe").setCreativeTab(tabDream);
-        fDiamondPickaxe = new ItemDreamPick(idFDiamondPickaxe, mat, "fakeDiamondPick").setUnlocalizedName(MODID + ".fDiamondPickaxe").func_111206_d("diamond_pickaxe").setCreativeTab(tabDream);
+        fDiamondSword = new ItemDreamSword(idFDiamondSword, mat, "fakeDiamondSword").setUnlocalizedName(MODID + ".fDiamondSword").setTextureName("diamond_sword").setCreativeTab(tabDream);
+        fDiamondShovel = new ItemDreamSpade(idFDiamondShovel, mat, "fakeDiamondShovel").setUnlocalizedName(MODID + ".fDiamondShovel").setTextureName("diamond_shovel").setCreativeTab(tabDream);
+        fDiamondAxe = new ItemDreamAxe(idFDiamondAxe, mat, "fakeDiamondAxe").setUnlocalizedName(MODID + ".fDiamondAxe").setTextureName("diamond_axe").setCreativeTab(tabDream);
+        fDiamondPickaxe = new ItemDreamPick(idFDiamondPickaxe, mat, "fakeDiamondPick").setUnlocalizedName(MODID + ".fDiamondPickaxe").setTextureName("diamond_pickaxe").setCreativeTab(tabDream);
 
         // registrations
         GameRegistry.registerBlock(dreamDirt, ItemDreamDirt.class, "dreamDirt");
@@ -242,6 +258,7 @@ public class DreamDimension
         GameRegistry.registerBlock(dreamDiamond, ItemDreamDiamond.class, "dreamDiamond");
         GameRegistry.registerBlock(dreamPlanks, ItemDreamPlanks.class, "dreamPlanks");
         GameRegistry.registerBlock(dreamSapling, ItemDreamSapling.class, "dreamSapling");
+      
 
         // register TEs.
         GameRegistry.registerTileEntity(TileEntityLimbo.class, "LimboTransfer");
@@ -273,6 +290,7 @@ public class DreamDimension
 
         // misc
         proxy.registerTickHandler();
+        
     }
 
     /**
@@ -290,6 +308,11 @@ public class DreamDimension
         EntityRegistry.registerGlobalEntityID(entityClass, entityName, id);
 
         EntityList.entityEggs.put(Integer.valueOf(id), new EntityEggInfo(id, bgColor, fgColor));
+    }
+    @EventHandler
+    public void serverLoad(FMLServerStartingEvent event)
+    {
+    	//event.registerServerCommand(new CommandTimeLeft());
     }
 
 }

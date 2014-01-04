@@ -33,7 +33,7 @@ public class CloudRenderer extends IRenderHandler
         int j = MathHelper.floor_double(d2 / 2048.0D);
         d1 -= (i * 2048);
         d2 -= (j * 2048);
-        mc.renderEngine.func_110577_a(field_110925_j);
+        mc.renderEngine.bindTexture(field_110925_j);
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         Vec3 vec3 = theWorld.getCloudColour(par1);

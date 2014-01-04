@@ -71,7 +71,7 @@ public class RenderGiantWool implements IItemRenderer
         //        }
 
         GL11.glPushMatrix();
-        TextureManager texturemanager = mc.func_110434_K();
+        TextureManager texturemanager = mc.getTextureManager();
 
         Block block = null;
         if (par2ItemStack.getItem() instanceof ItemBlock && par2ItemStack.itemID < Block.blocksList.length)
@@ -82,7 +82,7 @@ public class RenderGiantWool implements IItemRenderer
         MinecraftForgeClient.getItemRenderer(par2ItemStack, type);
         if (block != null && par2ItemStack.getItemSpriteNumber() == 0 && RenderBlocks.renderItemIn3d(Block.blocksList[par2ItemStack.itemID].getRenderType()))
         {
-            texturemanager.func_110577_a(texturemanager.func_130087_a(0));
+            texturemanager.getTexture(texturemanager.getResourceLocation(0));
             renderBlockAsItem(Block.blocksList[par2ItemStack.itemID], par2ItemStack.getItemDamage(), 1.0F, type);
         }
         else
@@ -95,7 +95,7 @@ public class RenderGiantWool implements IItemRenderer
                 return;
             }
 
-            texturemanager.func_110577_a(texturemanager.func_130087_a(par2ItemStack.getItemSpriteNumber()));
+            texturemanager.getTexture(texturemanager.getResourceLocation(par2ItemStack.getItemSpriteNumber()));
             Tessellator tessellator = Tessellator.instance;
             float f = icon.getMinU();
             float f1 = icon.getMaxU();
@@ -110,13 +110,13 @@ public class RenderGiantWool implements IItemRenderer
             GL11.glRotatef(50.0F, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(335.0F, 0.0F, 0.0F, 1.0F);
             GL11.glTranslatef(-0.9375F, -0.0625F, 0.0F);
-            renderItemIn2D(tessellator, f1, f2, f, f3, icon.getOriginX(), icon.getOriginY(), 0.0625F);
+            renderItemIn2D(tessellator, f1, f2, f, f3, 0, 0, 0.0625F);
 
             if (par2ItemStack.hasEffect(0))
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                texturemanager.func_110577_a(field_110930_b);
+                texturemanager.getTexture(field_110930_b);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f7 = 0.76F;

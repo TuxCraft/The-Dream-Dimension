@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class EntityUnicorn extends EntityFlying implements IMob
 {
 
-    public int    courseChangeCooldown;
+    public int    courseChangeCooldown; 
     public double waypointX;
     public double waypointY;
     public double waypointZ;
@@ -34,6 +34,8 @@ public class EntityUnicorn extends EntityFlying implements IMob
         isImmuneToFire = true;
         experienceValue = 5;
     }
+    
+  
 
     public float getEating()
     {
@@ -51,12 +53,7 @@ public class EntityUnicorn extends EntityFlying implements IMob
         return dataWatcher.getWatchableObjectByte(16) != 0;
     }
 
-    @Override
-    protected void func_110147_ax()
-    {
-        super.func_110147_ax();
-        func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(4.0D);
-    }
+   
 
     @Override
     protected void updateEntityActionState()

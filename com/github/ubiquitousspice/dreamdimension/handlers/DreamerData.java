@@ -1,6 +1,5 @@
 package com.github.ubiquitousspice.dreamdimension.handlers;
 
-import lombok.Data;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,25 +10,24 @@ import com.github.ubiquitousspice.dreamdimension.Util;
 import net.minecraft.util.ChunkCoordinates;
 
 //@Data
-@Data
 public class DreamerData
 {
-    private long            timeLeft = Long.MAX_VALUE; // seconds
+    public long            timeLeft = Long.MAX_VALUE; // seconds
 
     // bed coordinates.
-    private float           bedX;
-    private float           bedY;
-    private float           bedZ;
-    private int             bedDim;
+    public float           bedX;
+    public float           bedY;
+    public float           bedZ;
+    public int             bedDim;
 
-    private float           spewX;
-    private float           spewY;
-    private float           spewZ;
+    public float           spewX;
+    public float           spewY;
+    public float           spewZ;
 
-    private int             hunger;
-    private float           health;
+    public int             hunger;
+    public float           health;
 
-    private InventoryPlayer oldInv;
+    public InventoryPlayer oldInv;
 
     public DreamerData()
     {
@@ -57,8 +55,9 @@ public class DreamerData
         spewZ = loc.posZ;
 
         // health and hunger
-        health = player.func_110143_aJ();
+        health = player.getHealth();
         hunger = player.getFoodStats().getFoodLevel();
+        
 
         bedDim = player.worldObj.provider.dimensionId;
     }
@@ -124,4 +123,6 @@ public class DreamerData
 
         return data;
     }
+
+	
 }
